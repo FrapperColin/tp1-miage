@@ -10,6 +10,7 @@ import com.acme.mailreader.model.Mail;
  * Comme on désire afficher les mails les plus importants en premier, l'element le plus grand retourne une valeur négative
  *
  */
+// D�gager tous ces commentaires
 public class MailComparator implements Comparator<Mail> {
 
 	public int compare(Mail obj1, Mail obj2) {

@@ -1,3 +1,8 @@
+## FRAPPER Colin
+## TESSIER Paul-Alexandre
+
+
+
 # Pré-requis 
 * Disposer d'au moins un compte github par binome
 * Apporter son portable (les postes de l'université n'ont pas accès au proxy depuis Eclipse). Pas de préférence pour l'OS (Linux, OSX ou Windows).
