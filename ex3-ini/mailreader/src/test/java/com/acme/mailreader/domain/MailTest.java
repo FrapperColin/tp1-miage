@@ -15,9 +15,8 @@ import com.acme.mailreader.utils.MailInvalideException;
 
 public class MailTest {
 	
-	// TODO DEMANDER SI C'EST 1979 ou 1970
 	@Test(expected=DateIncorrecteException.class)
-	public final void erreurSiDateAvant1979() throws DateIncorrecteException {
+	public final void erreurSiDateAvant1970() throws DateIncorrecteException {
 		Mail mail= new Mail.Builder("sujetA").date(Instant.parse("1968-12-03T10:15:30.00Z")).build();
 			
 	}

@@ -10,66 +10,68 @@ import com.acme.mailreader.model.Mail;
  * Comme on désire afficher les mails les plus importants en premier, l'element le plus grand retourne une valeur négative
  *
  */
-// D�gager tous ces commentaires
 public class MailComparator implements Comparator<Mail> {
 
     int LESS_IMPORTANT = 1;
     int EQUAL = 0;
     int MORE_IMPORTANT = -1;
     
-	public int compare(Mail mail1, Mail mail2) {
+	public int compare(Mail mail, Mail otherMail) {
 		
-		if (oneOfTheMailIsNull(mail1, mail2)) {
+		if (oneOfTheMailIsNull(mail, otherMail)) {
 			throw new IllegalArgumentException("Can't compare with a null value");
 			//return EQUAL;
 		}
-		if (notTheSameImportance(mail1,mail2)) {
-			return mostImportantMail(mail1,mail2);
+		if (notTheSameImportance(mail,otherMail)) {
+			return mostImportantMail(mail,otherMail);
 		}
-		if (notTheSameStatut(mail1,mail2)) {
-			return sortByStatut(mail1,mail2);			
+		if (notTheSameStatut(mail,otherMail)) {
+			return sortByStatut(mail,otherMail);			
 		}
-		if (notTheSameSubject(mail1,mail2)) {
-			return compareMailSubjet(mail1,mail2) ;
+		if (notTheSameSubject(mail,otherMail)) {
+			return compareMailSubjet(mail,otherMail) ;
 		}
-		return mail1.getDate().compareTo(mail2.getDate());
+		return mail.getDate().compareTo(otherMail.getDate());
 	}
 
-	private boolean notTheSameSubject(Mail mail1, Mail mail2) {
-		return !mail1.getSujet().equals(mail2.getSujet());
+	private boolean notTheSameSubject(Mail mail, Mail otherMail) {
+		if (mail.getSujet() == null || otherMail.getSujet() == null) {
+			return true;
+		}
+		return !mail.getSujet().equals(otherMail.getSujet());
 	}
 
-	private int sortByStatut(Mail mail1, Mail mail2) {
-		int compareOrder = compareOrderStatus(mail1,mail2);
+	private int sortByStatut(Mail mail, Mail otherMail) {
+		int compareOrder = compareOrderStatus(mail,otherMail);
 		return compareOrder < 0 ? LESS_IMPORTANT : MORE_IMPORTANT;
 	}
 	
-	private boolean notTheSameStatut(Mail mail1, Mail mail2) {
-		return mail1.getStatut() != mail2.getStatut();
+	private boolean notTheSameStatut(Mail mail, Mail otherMail) {
+		return mail.getStatut() != otherMail.getStatut();
 	}
 
-	private boolean notTheSameImportance(Mail mail1, Mail mail2) {
-		return mail1.isImportant() != mail2.isImportant();
+	private boolean notTheSameImportance(Mail mail, Mail otherMail) {
+		return mail.isImportant() != otherMail.isImportant();
 	}
 
-	private boolean oneOfTheMailIsNull(Mail mail1, Mail mail2) {
-		return mail1 == null || mail2 == null ;
+	private boolean oneOfTheMailIsNull(Mail mail, Mail otherMail) {
+		return mail == null || otherMail == null ;
 	}
 
-	private int mostImportantMail(Mail mail1, Mail mail2) {
-		if (mail1.isImportant() && !mail2.isImportant()) {
+	private int mostImportantMail(Mail mail, Mail otherMail) {
+		if (mail.isImportant() && !otherMail.isImportant()) {
 			return MORE_IMPORTANT;
 		} else {
 			return LESS_IMPORTANT;
 		}
 	}
 
-	private int compareMailSubjet(Mail mail1, Mail mail2) {
-		return mail1.getSujet().compareTo(mail2.getSujet());
+	private int compareMailSubjet(Mail mail, Mail otherMail) {
+		return mail.getSujet().compareTo(otherMail.getSujet());
 	}
 
-	private int compareOrderStatus(Mail mail1, Mail mail2) {
-		return mail1.getStatut().ordinal() - mail2.getStatut().ordinal();
+	private int compareOrderStatus(Mail mail, Mail otherMail) {
+		return mail.getStatut().ordinal() - otherMail.getStatut().ordinal();
 	}
 	
 
