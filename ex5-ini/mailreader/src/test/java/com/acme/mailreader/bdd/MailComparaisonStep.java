@@ -1,7 +1,10 @@
 package com.acme.mailreader.bdd;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.acme.mailreader.domain.Mail;
@@ -28,6 +31,10 @@ public class MailComparaisonStep {
 	private Mail mail2;
 	private String resultatComparaison;
 	Comparator<Mail> comparator = new MailComparator();
+	
+	// added
+	List<Mail> listeMailsApresTri = new ArrayList<Mail>();
+
 	private static final Map<Integer, String> resuAsString = new HashMap<Integer, String>();
 	static {
 		resuAsString.put(MailComparator.PREMIER_PLUS_PETIT , "MAIL1_APRES");
@@ -39,26 +46,31 @@ public class MailComparaisonStep {
 	@Given("^un premier mail avec l'importance \"([^\"]*)\", le statut \"([^\"]*)\", le sujet \"([^\"]*)\" et la date \"([^\"]*)\"$")
 	public void un_premier_mail(boolean importance, Statut statut,
 			String sujet, String date) throws DateIncorrecteException {
-		//TODO
+		mail1 = new Mail.Builder("sujet").important(true).statut(Statut.LU).build();
+
 	}
 
 	@Given("^un second mail avec l'importance \"([^\"]*)\", le statut \"([^\"]*)\", le sujet \"([^\"]*)\" et la date \"([^\"]*)\"$")
 	public void un_second_mail(boolean importance, Statut statut, String sujet,
 			String date) throws DateIncorrecteException {
-		//TODO
+		mail1 = new Mail.Builder("sujet").important(true).statut(Statut.LU).build();
+
 	}
 
 	
 
 	@When("^je trie$")
 	public void je_trie() throws Throwable {
-		//TODO
+		listeMailsApresTri.add(mail1);
+		listeMailsApresTri.add(mail2);
+		Collections.sort(listeMailsApresTri, comparator);
 	}
 
 	@Then("^le test d'égalité doit retourner \"([^\"]*)\"$")
 	public void le_test_d_egalité(String resu) throws Throwable {
+		
 		//TODO
-		//assertThat(...);
+		//assertThat(resuAsString.get(comparator.compare(mail1, mail2)),either(containsString("EGAUX")));
 	}
 	
 

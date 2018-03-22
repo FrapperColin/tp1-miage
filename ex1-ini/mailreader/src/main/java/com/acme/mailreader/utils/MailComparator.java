@@ -13,70 +13,64 @@ import com.acme.mailreader.model.Mail;
 // D�gager tous ces commentaires
 public class MailComparator implements Comparator<Mail> {
 
-    final int LESS_IMPORTANT = 1;
-    final int EQUAL = 0;
+    int LESS_IMPORTANT = 1;
+    int EQUAL = 0;
     int MORE_IMPORTANT = -1;
     
-	public int compare(Mail mail, Mail otherMail) {
+	public int compare(Mail mail1, Mail mail2) {
 		
-//		if (mail == null || otherMail == null) {
-//			return EQUAL;
-//		}
-		
-		if (mail == null || otherMail == null) {
+		if (oneOfTheMailIsNull(mail1, mail2)) {
 			throw new IllegalArgumentException("Can't compare with a null value");
+			//return EQUAL;
+		}
+		if (notTheSameImportance(mail1,mail2)) {
+			return mostImportantMail(mail1,mail2);
 		}
 		
-		
-		
-		
-//		original
-		if (mail.isImportant() != otherMail.isImportant()) {
-			if (mail.isImportant() && !otherMail.isImportant()) {
-				return MORE_IMPORTANT;
-			} else {
-				return LESS_IMPORTANT;
-			}
+		if (notTheSameStatut(mail1,mail2)) {
+			return sortByStatut(mail1,mail2);			
 		}
-		
-
-		// original
-//		if (mail.getStatut() != otherMail.getStatut()) {
-//			int comp = mail.getStatut().ordinal()
-//					- otherMail.getStatut().ordinal();
-//			return comp > 0 ? -1 : 1;
-//		}
-		
-		// utiliser des méthodes courtes page 90 livre
-		
-		if (!(mail.getStatut().equals(otherMail.getStatut()))) {
-			int compareOrder = compareOrderStatus(mail,otherMail);
-			if(compareOrder > 0) {
-				return MORE_IMPORTANT ;
-			} else {
-				return LESS_IMPORTANT;
-			}
+		if (notTheSameSubject(mail1,mail2)) {
+			return compareMailSubjet(mail1,mail2) ;
 		}
-		
-		
-		
-//		if (mail.getSujet() != otherMail.getSujet()) {
-//			return otherMail.getSujet().compareTo(mail.getSujet());
-//		}
-		
-		if (!(mail.getSujet().equals(otherMail.getSujet()))) {
-			return compareMailSubjet(mail,otherMail) ;
-		}
-		
-		return otherMail.getDate().compareTo(mail.getDate());
+		return mail1.getDate().compareTo(mail2.getDate());
 	}
 
-	private int compareMailSubjet(Mail mail, Mail otherMail) {
-		return otherMail.getSujet().compareTo(mail.getSujet());
+	private boolean notTheSameSubject(Mail mail1, Mail mail2) {
+		return !mail1.getSujet().equals(mail2.getSujet());
 	}
 
-	private int compareOrderStatus(Mail mail, Mail otherMail) {
-		return mail.getStatut().ordinal() - otherMail.getStatut().ordinal();
+	private int sortByStatut(Mail mail1, Mail mail2) {
+		int compareOrder = compareOrderStatus(mail1,mail2);
+		return compareOrder < 0 ? LESS_IMPORTANT : MORE_IMPORTANT;
+	}
+	
+	private boolean notTheSameStatut(Mail mail1, Mail mail2) {
+		return mail1.getStatut() != mail2.getStatut();
+	}
+
+	private boolean notTheSameImportance(Mail mail1, Mail mail2) {
+		return mail1.isImportant() != mail2.isImportant();
+	}
+
+	private boolean oneOfTheMailIsNull(Mail mail1, Mail mail2) {
+		return mail1 == null || mail2 == null ;
+	}
+
+	private int mostImportantMail(Mail mail, Mail otherMail) {
+		if (mail.isImportant() && !otherMail.isImportant()) {
+			return MORE_IMPORTANT;
+		} else {
+			return LESS_IMPORTANT;
+		}
+	}
+
+	private int compareMailSubjet(Mail mail1, Mail mail2) {
+		return mail1.getSujet().compareTo(mail2.getSujet());
+	}
+
+	private int compareOrderStatus(Mail mail1, Mail mail2) {
+		return mail1.getStatut().ordinal() - mail2.getStatut().ordinal();
 	}
 	
 
