@@ -37,9 +37,6 @@ public class MailComparaisonStep {
 	private Mail mail2;
 	private String resultatComparaison;
 	Comparator<Mail> comparator = new MailComparator();
-	
-	// added
-	List<Mail> listeMailsApresTri = new ArrayList<Mail>();
 
 	private static final Map<Integer, String> resuAsString = new HashMap<Integer, String>();
 	static {
@@ -63,14 +60,11 @@ public class MailComparaisonStep {
 
 	@When("^je trie$")
 	public void je_trie() throws Throwable {
-		listeMailsApresTri.add(mail1);
-		listeMailsApresTri.add(mail2);
-		Collections.sort(listeMailsApresTri, comparator);
+		resultatComparaison = resuAsString.get(comparator.compare(mail1, mail2));
 	}
 
 	@Then("^le tri doit retourner \"([^\"]*)\"$")
 	public void le_tri_doit_retourner(String resu) throws Throwable {
-		resultatComparaison = resuAsString.get(comparator.compare(mail1, mail2));
 		assertThat(resultatComparaison,is(resu));
 	}
 	
