@@ -26,7 +26,6 @@ public class MailComparator implements Comparator<Mail> {
 		if (notTheSameImportance(mail1,mail2)) {
 			return mostImportantMail(mail1,mail2);
 		}
-		
 		if (notTheSameStatut(mail1,mail2)) {
 			return sortByStatut(mail1,mail2);			
 		}
@@ -57,8 +56,8 @@ public class MailComparator implements Comparator<Mail> {
 		return mail1 == null || mail2 == null ;
 	}
 
-	private int mostImportantMail(Mail mail, Mail otherMail) {
-		if (mail.isImportant() && !otherMail.isImportant()) {
+	private int mostImportantMail(Mail mail1, Mail mail2) {
+		if (mail1.isImportant() && !mail2.isImportant()) {
 			return MORE_IMPORTANT;
 		} else {
 			return LESS_IMPORTANT;
