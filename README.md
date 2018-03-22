@@ -92,6 +92,11 @@ Observer la méthode `ClientMail.main()` : elle charge la configuration et cré�
 
 Noter l'arbre d'injection que forme les objets injectés depuis  `InterpreteurLigneCommande`.
 
+InterpreteurLigneCommande
+	| MailService
+		| MailSender de type SmtpMailSender ou InMemoryMailSender
+		
+
 # Exercice 4 - TU
 _Temps estimé : 30 mins_
 
