@@ -117,9 +117,10 @@ Pour les besoins du TP, nous utilisons ici les notions de Scenario Outline, de D
 2) Lancer le test `CucumberRunnerTest` en junit
 3) Ouvrir dans un navigateur `target/cucumber/index.html`
 4) Ajouter des cas de test dans la feature `trier_mail.feature` : faut-il ecrire de nouvelles méthodes de test comme en tests unitaires ?
-	Non, il n'est pas nécéssaire d'écrire de nouvelles méthodes de tests et c'est justement l'avantage de Cucumber par rapport au tests "classique". 
+	Non, il n'est pas nécéssaire d'écrire de nouvelles méthodes de test comme en tests unitaires, il nous suffit d'utiliser les différentes annotations (Given, When, Then) et d'implémenter la méthode correspondante et c'est justement l'avantage de Cucumber par rapport au tests unitaires "classique". 
 5) optionnel :
 Ecrire un scenario simple au format textuel et les steps correspondants.
+	Nous avons un petit peu modifié le code et créé une classe afin de tester l'envoie d'un mail en production ou alors en mémoire.
 
 # Cleanup
 Si vous le désirez, vous pourrez supprimer votre projet github mais pas avant fin juin (noté)
