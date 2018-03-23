@@ -1,16 +1,16 @@
 package com.acme.mailreader.bdd;
 
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import com.acme.mailreader.domain.Mail;
 import com.acme.mailreader.domain.Mail.Statut;
+import com.acme.mailreader.service.MailService;
 import com.acme.mailreader.domain.MailComparator;
+import com.acme.mailreader.infrastructure.InMemoryMailSender;
+import com.acme.mailreader.infrastructure.SmtpMailSender;
 import com.acme.mailreader.utils.DateIncorrecteException;
 
 import cucumber.api.java.en.Given;
@@ -45,6 +45,10 @@ public class MailComparaisonStep {
 		resuAsString.put(MailComparator.PREMIER_PLUS_GRAND, "MAIL1_AVANT");
 	}
 	
+	
+	
+	
+	
 
 	@Given("^un premier mail avec l'importance \"([^\"]*)\", le statut \"([^\"]*)\", le sujet \"([^\"]*)\" et la date \"([^\"]*)\"$")
 	public void un_premier_mail(boolean importance, Statut statut,
@@ -69,4 +73,6 @@ public class MailComparaisonStep {
 	}
 	
 
+	
+	
 }

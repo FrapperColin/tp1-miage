@@ -33,6 +33,14 @@ public class MailComparator implements Comparator<Mail> {
 		}
 		return mail.getDate().compareTo(otherMail.getDate());
 	}
+	
+	private int mostImportantMail(Mail mail, Mail otherMail) {
+		if (mail.isImportant() && !otherMail.isImportant()) {
+			return MORE_IMPORTANT;
+		} else {
+			return LESS_IMPORTANT;
+		}
+	}
 
 	private boolean notTheSameSubject(Mail mail, Mail otherMail) {
 		if (mail.getSujet() == null || otherMail.getSujet() == null) {
@@ -58,13 +66,7 @@ public class MailComparator implements Comparator<Mail> {
 		return mail == null || otherMail == null ;
 	}
 
-	private int mostImportantMail(Mail mail, Mail otherMail) {
-		if (mail.isImportant() && !otherMail.isImportant()) {
-			return MORE_IMPORTANT;
-		} else {
-			return LESS_IMPORTANT;
-		}
-	}
+	
 
 	private int compareMailSubjet(Mail mail, Mail otherMail) {
 		return mail.getSujet().compareTo(otherMail.getSujet());
